@@ -54,7 +54,7 @@ namespace Project3
         private async void LoginButton_Click(object sender, RoutedEventArgs e)
         {
             if (LoginBox.Text.Length == 0 || PasswordBox.Text.Length == 0)
-            {
+            {  
                 MessageBox.Show("Есть пустые поля!");
                 return;
             }
