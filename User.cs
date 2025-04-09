@@ -19,7 +19,7 @@ namespace Project3
         {
             this.Order = new HashSet<Order>();
         }
-
+    
         public int ID { get; set; }
         public string UserSurname { get; set; }
         public string UserName { get; set; }
@@ -27,8 +27,7 @@ namespace Project3
         public string UserLogin { get; set; }
         public string UserPassword { get; set; }
         public int UserRole { get; set; }
-   
-
+    
         public virtual Role Role { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Order { get; set; }

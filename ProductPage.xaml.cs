@@ -22,7 +22,10 @@ namespace Project3
     {
         private int total;
         private List<Product> currentProducts;
-        
+        List<OrderProduct> selectedOrderProducts = new List<OrderProduct>();
+        List<Product> selectedProducts = new List<Product>();
+        private string userFullName;
+        private User currentUser;
         public ProductPage()
         {
             InitializeComponent();
@@ -31,7 +34,8 @@ namespace Project3
             total = currentProducts.Count;
             Update();
             SetRecordCount(currentProducts.Count);
-
+            currentUser = Manager.user;
+            userFullName = Manager.Name;
             AuthNameTB.Text = "Вы авторизованы как: " + Manager.Name;
             switch (Manager.role)
             {
@@ -79,7 +83,7 @@ namespace Project3
                     currentProducts = currentProducts.Where(p => p.ProductDiscountAmount >= 15).ToList();
                     break;
             }
-           
+
         }
 
         private void UpdateSort()
@@ -113,6 +117,68 @@ namespace Project3
         private void nameSearch_TextChanged(object sender, TextChangedEventArgs e)
         {
             Update();
+        }
+
+        private void OrderBtn_Click(object sender, RoutedEventArgs e)
+        {
+            selectedProducts = selectedProducts.Distinct().ToList();
+            OrderWindow orderWindow = new OrderWindow(selectedOrderProducts, selectedProducts, userFullName, currentUser);
+            orderWindow.ShowDialog();
+
+            if (orderWindow.isSaved)
+            {
+                OrderBtn.Visibility = Visibility.Hidden;
+                selectedProducts.Clear();
+                selectedOrderProducts.Clear();
+            }
+
+
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            if (ProductView.SelectedIndex >= 0)
+            {
+
+                int newOrderID = GayfullinTradeEntities.GetContext().Order.OrderByDescending(p => p.OrderID).First().OrderID + 1;
+
+                foreach (Product prod in ProductView.SelectedItems)
+                {
+
+                    //var prod = ProductListView.SelectedItem as Product;
+                    selectedProducts.Add(prod);
+
+                    var newOrderProd = new OrderProduct();
+                    newOrderProd.OrderID = newOrderID;
+
+                    newOrderProd.ProductArticleNumber = prod.ProductArticleNumber;
+                    newOrderProd.ProductCount = 1;
+                    newOrderProd.Quantity = 1;
+
+                    var selOP = selectedOrderProducts.Where(p => Equals(p.ProductArticleNumber, prod.ProductArticleNumber));
+
+                    if (selOP.Count() == 0)
+                    {
+                        selectedOrderProducts.Add(newOrderProd);
+                    }
+                    else
+                    {
+                        foreach (OrderProduct p in selectedOrderProducts)
+                        {
+                            if (p.ProductArticleNumber == prod.ProductArticleNumber)
+                            {
+                                p.Quantity++;
+                                p.ProductCount++;
+
+                            }
+                        }
+                    }
+
+                    decimal prodPriceWithDiscount = prod.ProductCost - prod.ProductCost / 100 * (decimal)prod.ProductDiscountAmount;
+                    BasketPrice.increaseCost(prodPriceWithDiscount);
+                    OrderBtn.Visibility = Visibility.Visible;
+                }
+            }
         }
     }
 }

@@ -28,6 +28,5 @@ D:\3 курс\Гайфуллин\3 проект\Project3\bin\Debug\ru\EntityFram
 D:\3 курс\Гайфуллин\3 проект\Project3\obj\Debug\Project3.csproj.CopyComplete
 D:\3 курс\Гайфуллин\3 проект\Project3\obj\Debug\CaptchaPage.g.cs
 D:\3 курс\Гайфуллин\3 проект\Project3\obj\Debug\CaptchaPage.baml
-D:\3 курс\Гайфуллин\3 проект\Project3\obj\Debug\OrderPage.g.cs
-D:\3 курс\Гайфуллин\3 проект\Project3\obj\Debug\OrderPage.baml
 D:\3 курс\Гайфуллин\3 проект\Project3\obj\Debug\OrderWindow.g.cs
+D:\3 курс\Гайфуллин\3 проект\Project3\obj\Debug\OrderWindow.baml

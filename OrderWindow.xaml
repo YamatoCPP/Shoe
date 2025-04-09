@@ -8,25 +8,101 @@
         Title="OrderWindow" Height="450" Width="800" 
         FontFamily="Comic Sans MS" FontSize="20">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="40"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="140"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="80"></RowDefinition>
+            </Grid.RowDefinitions>
 
-        <TextBlock Text="Дата формирования заказа" Grid.Column="0" Grid.Row="0"/>
-        <TextBlock Text="Дата доставки заказа" Grid.Column="0" Grid.Row="1"/>
-        <TextBlock Text="ФИО клиента" Grid.Column="0" Grid.Row="2"/>
-        <TextBlock Text="Номер заказа" Grid.Column="0" Grid.Row="3"/>
-        <TextBlock Text="Пункт выдачи" Grid.Column="0" Grid.Row="5"/>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="300"></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Column="0" HorizontalAlignment="Right" Grid.Row="0" Text="Дата формирования заказа" FontSize="20" Margin="5"/>
+                <DatePicker Grid.Column="1" Grid.Row="0" FontSize="20" Width="auto" Name="OrderFormDP" IsEnabled="False"/>
+
+
+                <TextBlock Grid.Column="0" HorizontalAlignment="Right" Grid.Row="1" Text="Дата доставки заказа" FontSize="20" Margin="5"/>
+                <DatePicker Grid.Column="1" Grid.Row="1" FontSize="20" Width="auto" Name="OrderDeliveryDP" />
+
+                <TextBlock Grid.Column="0" HorizontalAlignment="Right" Grid.Row="2" Text="ФИО клиента" FontSize="20" Margin="5"/>
+                <TextBlock Name="ClientTB" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" FontSize="20" HorizontalAlignment="Left"/>
+
+                <TextBlock Grid.Column="0" HorizontalAlignment="Right" Grid.Row="3" Text="Номер заказа" FontSize="20" Margin="5"/>
+                <TextBlock Name="TBOrderID" Grid.Column="1" Grid.Row="3" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+
+
+            </Grid>
+
+            <ListView Name="ShoeListView" Grid.Row="1" HorizontalContentAlignment="Stretch">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="180"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="100"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="30"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
+                            </Grid.RowDefinitions>
+
+                            <Image Width="180" Grid.Column="0" Stretch="UniformToFill" HorizontalAlignment="Center" Grid.RowSpan="4">
+                                <Image.Source>
+                                    <Binding Path="ImageFullPath">
+                                        <Binding.TargetNullValue>
+                                            <ImageSource>
+                                                img/picture.png
+                                            </ImageSource>
+                                        </Binding.TargetNullValue>
+                                    </Binding>
+                                </Image.Source>
+                            </Image>
+
+                            <TextBlock Text="{Binding ProductName}" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" FontSize="20" TextWrapping="Wrap"></TextBlock>
+                            <TextBlock Text="{Binding ProductDescription}"  Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" FontSize="18"></TextBlock>
+                            <TextBlock Text="{Binding ProductManufacturer}" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" FontSize="18"></TextBlock>
+                            <TextBlock Text="{Binding ProductCost, StringFormat={} {0} руб.}" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Left" FontSize="18"></TextBlock>
+                            <WrapPanel Grid.Row="5" Grid.Column="1">
+                                <Button Content="-" Width="20" Name="BtnMinus" Click="BtnMinus_Click"></Button>
+                                <TextBlock Name="CountTB" Text="{Binding Quantity}" FontSize="23"></TextBlock>
+                                <Button Content="+" Width="20" Name="BtnPlus" Click="BtnPlus_Click"></Button>
+                            </WrapPanel>
+                            <TextBlock Text="Скидка:" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Center" FontSize="20"></TextBlock>
+                            <TextBlock Text="{Binding ProductDiscountAmount, StringFormat={} {0} %}" Grid.Column="2" Grid.Row="3" HorizontalAlignment="Center" FontSize="23"></TextBlock>
+
+                        </Grid>
+
+
+
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+
+            </ListView>
+
+            <WrapPanel Grid.Row="2" HorizontalAlignment="Center">
+                <TextBlock Text="Пункт выдачи" FontSize="20" Margin="0,0,5,0"></TextBlock>
+                <ComboBox Name="PickupCombo" FontSize="20" Width="500" DisplayMemberPath="PickUpPointFullAddress"></ComboBox>
+            </WrapPanel>
+            <Button Grid.Row="2" VerticalAlignment="Bottom" HorizontalAlignment="Center" Content="Сохранить" Name="SaveButton" Click="SaveButton_Click"></Button>
+            <TextBlock Grid.Row="2" Name="TBOrderSum" Text="Сумма заказа: " VerticalAlignment="Bottom" HorizontalAlignment="Left" FontSize="20"></TextBlock>
+        </Grid>
+
 
     </Grid>
 </Window>

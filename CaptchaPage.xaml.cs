@@ -43,6 +43,7 @@ namespace Project3
         {
             Manager.role = RoleEnum.GUEST;
             Manager.Name = "Гость";
+            Manager.user = null;
             Manager.MainFrame.Navigate(new ProductPage());
             CaptchaEnt.Visibility = Visibility.Hidden;
             CaptchaTB.Visibility = Visibility.Hidden;
@@ -81,6 +82,7 @@ namespace Project3
                 return;
             }
 
+            Manager.user = clients[0];
             Manager.role = (RoleEnum)clients[0].Role.RoleID;
             Manager.Name = clients[0].UserName.ToString() + " " + clients[0].UserSurname.ToString() + " " + clients[0].UserPatronymic.ToString();
             Manager.MainFrame.Navigate(new ProductPage());

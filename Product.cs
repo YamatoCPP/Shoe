@@ -34,14 +34,6 @@ namespace Project3
         public string ProductPhoto { get; set; }
         public string ProductStatus { get; set; }
     
-        public string ProductPhotoPath
-        {
-            get
-            {
-                if (ProductPhoto == null) return "img/picture.png";
-                return "products/" + ProductPhoto;
-            }
-        }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderProduct> OrderProduct { get; set; }
     }

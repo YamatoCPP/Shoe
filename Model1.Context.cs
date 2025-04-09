@@ -21,13 +21,7 @@ namespace Project3
             : base("name=GayfullinTradeEntities")
         {
         }
-
-        private static GayfullinTradeEntities _context;
-        public static GayfullinTradeEntities GetContext()
-        {
-            if ( _context == null ) _context = new GayfullinTradeEntities();
-            return _context;
-        }
+    
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();

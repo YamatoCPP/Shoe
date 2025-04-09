@@ -78,18 +78,6 @@
     <Property Name="UserPassword" Type="nvarchar(max)" Nullable="false" />
     <Property Name="UserRole" Type="int" Nullable="false" />
   </EntityType>
-  <Association Name="FK__OrderProd__Order__2D27B809">
-    <End Role="Order" Type="Self.Order" Multiplicity="1" />
-    <End Role="OrderProduct" Type="Self.OrderProduct" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Order">
-        <PropertyRef Name="OrderID" />
-      </Principal>
-      <Dependent Role="OrderProduct">
-        <PropertyRef Name="OrderID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK__OrderProd__Produ__2E1BDC42">
     <End Role="Product" Type="Self.Product" Multiplicity="1" />
     <End Role="OrderProduct" Type="Self.OrderProduct" Multiplicity="*" />
@@ -111,6 +99,18 @@
       </Principal>
       <Dependent Role="User">
         <PropertyRef Name="UserRole" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order_PickUp">
+    <End Role="PickUp" Type="Self.PickUp" Multiplicity="1" />
+    <End Role="Order" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PickUp">
+        <PropertyRef Name="PickUpID" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="OrderPickupPoint" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -165,10 +165,6 @@
     <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
-    <AssociationSet Name="FK__OrderProd__Order__2D27B809" Association="Self.FK__OrderProd__Order__2D27B809">
-      <End Role="Order" EntitySet="Order" />
-      <End Role="OrderProduct" EntitySet="OrderProduct" />
-    </AssociationSet>
     <AssociationSet Name="FK__OrderProd__Produ__2E1BDC42" Association="Self.FK__OrderProd__Produ__2E1BDC42">
       <End Role="Product" EntitySet="Product" />
       <End Role="OrderProduct" EntitySet="OrderProduct" />
@@ -176,6 +172,10 @@
     <AssociationSet Name="FK__User__UserRole__267ABA7A" Association="Self.FK__User__UserRole__267ABA7A">
       <End Role="Role" EntitySet="Role" />
       <End Role="User" EntitySet="User" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_PickUp" Association="Self.FK_Order_PickUp">
+      <End Role="PickUp" EntitySet="PickUp" />
+      <End Role="Order" EntitySet="Order" />
     </AssociationSet>
     <AssociationSet Name="FK_Order_User1" Association="Self.FK_Order_User1">
       <End Role="User" EntitySet="User" />

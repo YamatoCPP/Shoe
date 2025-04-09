@@ -19,6 +19,7 @@ namespace Project3
     {
         public static string Name;
         public static RoleEnum role;
+        public static User user;
         public static Frame MainFrame { get; set; }
     }
 }

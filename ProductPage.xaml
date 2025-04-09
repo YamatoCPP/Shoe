@@ -19,7 +19,7 @@
             <TextBlock Name="AuthNameTB"/>
             <TextBlock Name="RoleTB"/>
         </StackPanel>
-        
+
         <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center">
             <TextBox Name="nameSearch" Width="300" Margin="10" TextChanged="nameSearch_TextChanged"/>
             <ComboBox Name="costSort" Width="300" Margin="10" SelectionChanged="costSort_SelectionChanged">
@@ -35,8 +35,15 @@
             </ComboBox>
             <TextBox Name="recordsCountBox" Width="100" Margin="10" IsEnabled="False"/>
         </StackPanel>
-        
+
+        <Button Name="OrderBtn" Click="OrderBtn_Click" Visibility="Hidden" Content="Заказ"></Button>
         <ListView Name="ProductView" Grid.Row="2">
+            <ListView.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Добавить к заказу" Click="MenuItem_Click"/>
+                </ContextMenu>
+            </ListView.ContextMenu>
+            
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid Height="150">
